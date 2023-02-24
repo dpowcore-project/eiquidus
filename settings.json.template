@@ -97,9 +97,23 @@
     "theme": "Litera",
     // page_title: The text to display at the end of the HTML title tag and also displayed in the page header when the "shared_pages.page_header.home_link" setting is set to "title"
     "page_title": "Bitweb Explorer",
-    // favicon: The path to an icon file that is displayed in a browser window/tab and serves as branding for your website. Its main purpose is to help visitors locate your page easier when they have multiple tabs open
-    //          NOTE: The path root is /
-    "favicon": "public/favicon.ico",
+    // favicons: a collection of image or icon files that are displayed in a browser window/tab and serve as branding for your website. Their main purpose is to help visitors locate your page easier when they have multiple tabs open
+    //          Modern favicon sizes were inspired by this web article: https://www.emergeinteractive.com/insights/detail/The-Essentials-of-FavIcons/
+    //          NOTE: If any of the favicons are left blank or not set to a valid file, they will be disabled and unused
+    "favicons": {
+      // favicon32: The path to a 32x32 image or icon file
+      //            NOTE: The path root is /public
+      "favicon32": "favicon-32.png",
+      // favicon128: The path to a 128x128 image or icon file
+      //            NOTE: The path root is /public
+      "favicon128": "favicon-128.png",
+      // favicon180: The path to a 180x180 image or icon file
+      //            NOTE: The path root is /public
+      "favicon180": "favicon-180.png",
+      // favicon192: The path to a 192x192 image or icon file
+      //            NOTE: The path root is /public
+      "favicon192": "favicon-192.png"
+    },
     // logo: The path to an image file that is displayed on the api page as well as in one of the top panels when enabled
     //       This logo can also be displayed in the header when the "shared_pages.page_header.home_link" setting is set to "logo" and the "shared_pages.page_header.home_link_logo" setting is blank or an invalid file
     //       NOTE: The path root is /public
@@ -139,6 +153,10 @@
     "show_hashrate": true,
     // page_header: A collection of settings that pertain to the page header that is displayed at the top of all pages
     "page_header": {
+      // menu: Valid options:
+      //       top: display menu items horizontally across the top of the page
+      //       side: display menu items vertically across the left-hand side of the page
+      "menu": "side",
       // sticky_header: Determine whether page header "sticks" to top of page or not (true/false)
       "sticky_header": true,
       // bgcolor: Change the background color of the page header
@@ -285,7 +303,10 @@
           // crosshair_color: Change the vertical crosshair line color of the network hashrate chart
           //             Set this to any valid html color
           //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "crosshair_color": "#000000"
+          "crosshair_color": "#000000",
+          // round_decimals: Set how many decimal places the hash rates are rounded to (Max 20)
+          //                 NOTE: Set to a value of -1 to output the raw value without rounding
+          "round_decimals": 3
         },
         // difficulty_chart: A collection of settings that pertain to the network difficulty chart
         "difficulty_chart": {
@@ -296,18 +317,29 @@
           //          Set this to any valid html color
           //          Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
           "bgcolor": "#ffffff",
-          // line_color: Change the line color of the network difficulty chart
-          //             Set this to any valid html color
-          //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "line_color": "rgba(255, 99, 132, 1)",
-          // fill_color: Change the fill color of the network difficulty chart
-          //             Set this to any valid html color
-          //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "fill_color": "rgba(255, 99, 132, 0.2)",
+          // pow_line_color: Change the line color of the network difficulty chart for POW coins
+          //                 Set this to any valid html color
+          //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
+          "pow_line_color": "rgba(255, 99, 132, 1)",
+          // pow_fill_color: Change the fill color of the network difficulty chart for POW coins
+          //                 Set this to any valid html color
+          //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
+          "pow_fill_color": "rgba(255, 99, 132, 0.2)",
+          // pos_line_color: Change the line color of the network difficulty chart for POS coins
+          //                 Set this to any valid html color
+          //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
+          "pos_line_color": "rgba(255, 161, 0, 1)",
+          // pos_fill_color: Change the fill color of the network difficulty chart for POS coins
+          //                 Set this to any valid html color
+          //                 Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
+          "pos_fill_color": "rgba(255, 161, 0, 0.2)",
           // crosshair_color: Change the vertical crosshair line color of the network difficulty chart
           //             Set this to any valid html color
           //             Ex: "#ffffff" or "rgba(255, 255, 255, 1)" or "white"
-          "crosshair_color": "#000000"
+          "crosshair_color": "#000000",
+          // round_decimals: Set how many decimal places the difficulty values are rounded to (Max 20)
+          //                 NOTE: Set to a value of -1 to output the raw value without rounding
+          "round_decimals": 3
         },
         // reload_chart_seconds: The time in seconds to automatically reload the network chart data from the server
         //                       Set to 0 to disable automatic reloading of chart data
@@ -353,11 +385,11 @@
         {
           // enabled: Enable/disable this particular social link (true/false)
           //          If set to false, the link will be completely inaccessible
-          "enabled": false,
+          "enabled": true,
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Twitter
           "tooltip_text": "Twitter",
           // url: The exact url that the social link should navigate to
-          "url": "https://example.com",
+          "url": "https://twitter.com/Bitweb_Project",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fab fa-twitter",
           // image_path: The path to an image file that will be displayed for this social link
@@ -680,7 +712,15 @@
       // page_length_options: An array of page length options that determine how many items/records to display in the table at any given time
       "page_length_options": [ 10, 25, 50, 75, 100 ],
       // items_per_page: The default amount of items/records to display in the table at any given time
-      "items_per_page": 10
+      "items_per_page": 10,
+      // port_filter: Specify a port number to only allow showing peers on the selected port.
+      //              Set this value to 0 to show all peers on any port.
+      //              Set this value to -1 to hide the port column. NOTE: If the -1 value is set then instead of showing multiple duplicate rows for ip addresses that connected on different ports, only a single row will be shown per unique ip address
+      "port_filter": -1,
+      // hide_protocols: An array of protocol numbers that will be filtered out of the table results
+      //                 If a peer connects to the explorer wallet with one of these protocol numbers, that record will not be displayed in this table
+      //                 Add as many protocol values as necessary in the following format: [ 0, 70803, 70819 ]
+      "hide_protocols": [ ]
     },
     // addnodes_table: a collection of settings that pertain to the add nodes table on the network page
     //                 Table data is populated via the /ext/getnetworkpeers api
@@ -688,7 +728,15 @@
       // page_length_options: An array of page length options that determine how many items/records to display in the table at any given time
       "page_length_options": [ 10, 25, 50, 75, 100 ],
       // items_per_page: The default amount of items/records to display in the table at any given time
-      "items_per_page": 10
+      "items_per_page": 10,
+      // port_filter: Specify a port number to only allow showing peers on the selected port.
+      //              Set this value to 0 to show all peers on any port.
+      //              Set this value to -1 to prevent the port portion of the addnode string from being displayed. NOTE: If the -1 value is set then instead of showing multiple duplicate rows for ip addresses that connected on different ports, only a single row will be shown per unique ip address
+      "port_filter": -1,
+      // hide_protocols: An array of protocol numbers that will be filtered out of the table results
+      //                 If a peer connects to the explorer wallet with one of these protocol numbers, that record will not be displayed in this table
+      //                 Add as many protocol values as necessary in the following format: [ 0, 70803, 70819 ]
+      "hide_protocols": [ ]
     },
     // onetry_table: a collection of settings that pertain to the one try table on the network page
     //               Table data is populated via the /ext/getnetworkpeers api
@@ -696,7 +744,15 @@
       // page_length_options: An array of page length options that determine how many items/records to display in the table at any given time
       "page_length_options": [ 10, 25, 50, 75, 100 ],
       // items_per_page: The default amount of items/records to display in the table at any given time
-      "items_per_page": 10
+      "items_per_page": 10,
+      // port_filter: Specify a port number to only allow showing peers on the selected port.
+      //              Set this value to 0 to show all peers on any port.
+      //              Set this value to -1 to prevent the port portion of the onetry string from being displayed. NOTE: If the -1 value is set then instead of showing multiple duplicate rows for ip addresses that connected on different ports, only a single row will be shown per unique ip address
+      "port_filter": -1,
+      // hide_protocols: An array of protocol numbers that will be filtered out of the table results
+      //                 If a peer connects to the explorer wallet with one of these protocol numbers, that record will not be displayed in this table
+      //                 Add as many protocol values as necessary in the following format: [ 0, 70803, 70819 ]
+      "hide_protocols": [ ]
     }
   },
 
@@ -791,7 +847,7 @@
     "show_market_select": true,
     // exchanges: Enable/disable api integration with any of the available built-in exchanges
     //            Enabled exchanges display a number of exchange-related metrics including market summary, 24 hour chart, most recent buy/sell orders and latest trade history
-    //            Supported exchanges: altmarkets, bittrex, bleutrade, crex, poloniex, southxchange, stex, yobit
+    //            Supported exchanges: altmarkets, bittrex, bleutrade, crex, dex-trade, freiexchange/freixlite, poloniex, southxchange, stex, txbit, unnamed, yobit, ztb.im, exbitron
     "exchanges": {
       // altmarkets: a collection of settings that pertain to the altmarkets exchange
       "altmarkets": {
@@ -857,6 +913,29 @@
         //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
         "trading_pairs": [ "LTC/BTC" ]
       },
+      // dextrade: a collection of settings that pertain to the dex-trade exchange
+      "dextrade": {
+        // enabled: Enable/disable the dex-trade exchange (true/false)
+        //          If set to false, the dex-trade page will be completely inaccessible and no market data will be downloaded for this exchange
+        "enabled": false,
+        // trading_pairs: An array of market trading pair symbols
+        //                You can add as many trading pairs as necessary
+        //                All entries must specify your coins symbol as it is displayed on the exchange, followed by a slash (/) and ending with the symbol of the market or asset that is being traded against
+        //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
+        "trading_pairs": [ "LTC/BTC" ]
+      },
+      // freiexchange: a collection of settings that pertain to the freiexchange/freixlite exchange
+      //               NOTE: freiexchange does not display a 24-hour chart due to a lack of OHLCV api data
+      "freiexchange": {
+        // enabled: Enable/disable the freiexchange/freixlite exchange (true/false)
+        //          If set to false, the freiexchange/freixlite page will be completely inaccessible and no market data will be downloaded for this exchange
+        "enabled": false,
+        // trading_pairs: An array of market trading pair symbols
+        //                You can add as many trading pairs as necessary
+        //                All entries must specify your coins symbol as it is displayed on the exchange, followed by a slash (/) and ending with the symbol of the market or asset that is being traded against
+        //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
+        "trading_pairs": [ "LTC/BTC" ]
+      },
       // poloniex: a collection of settings that pertain to the poloniex exchange
       "poloniex": {
         // enabled: Enable/disable the poloniex exchange (true/false)
@@ -890,8 +969,31 @@
         //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
         "trading_pairs": [ "LTC/BTC", "LTC/USDT" ]
       },
+      // txbit: a collection of settings that pertain to the txbit exchange
+      //        NOTE: txbit does not display a 24-hour chart due to a lack of OHLCV api data
+      "txbit": {
+        // enabled: Enable/disable the txbit exchange (true/false)
+        //          If set to false, the txbit page will be completely inaccessible and no market data will be downloaded for this exchange
+        "enabled": false,
+        // trading_pairs: An array of market trading pair symbols
+        //                You can add as many trading pairs as necessary
+        //                All entries must specify your coins symbol as it is displayed on the exchange, followed by a slash (/) and ending with the symbol of the market or asset that is being traded against
+        //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
+        "trading_pairs": [ "LTC/ETH" ]
+      },
+      // unnamed: a collection of settings that pertain to the unnamed exchange
+      "unnamed": {
+        // enabled: Enable/disable the unnamed exchange (true/false)
+        //          If set to false, the unnamed page will be completely inaccessible and no market data will be downloaded for this exchange
+        "enabled": false,
+        // trading_pairs: An array of market trading pair symbols
+        //                You can add as many trading pairs as necessary
+        //                All entries must specify your coins symbol as it is displayed on the exchange, followed by a slash (/) and ending with the symbol of the market or asset that is being traded against
+        //                Ex: "LTC/BTC", "LTC/USDT", "LTC/ETH"
+        "trading_pairs": [ "LTC/BTC" ]
+      },
       // yobit: a collection of settings that pertain to the yobit exchange
-      //        NOTE: yobit does not display a 24-hour chart due to yobit's lack of OHLCV api data
+      //        NOTE: yobit does not display a 24-hour chart due to a lack of OHLCV api data
       "yobit": {
         // enabled: Enable/disable the yobit exchange (true/false)
         //          If set to false, the yobit page will be completely inaccessible and no market data will be downloaded for this exchange
@@ -1205,6 +1307,7 @@
     //         Valid options:
     //         COINBASE : retrieve the total coins sent from the coinbase (Often used for PoW coins)
     //         GETINFO : retrieved from getinfo rpc cmd (Often used for PoS coins)
+    //         GETBLOCKCHAININFO : retrieved from getblockchaininfo rpc cmd
     //         HEAVY: retrieved from getsupply rpc cmd (The "blockchain_specific.heavycoin.enabled" setting must be set to true and the "blockchain_specific.heavycoin.api_cmds.getsupply" setting must be set up correctly for this option to work properly)
     //         BALANCES : get the supply by running a query on the addresses collection and summing up all positive balances (potentially a long running query for blockchains with tons of addresses)
     //         TXOUTSET : retrieved from gettxoutsetinfo rpc cmd
@@ -1275,6 +1378,8 @@
     "getrawtransaction": "getrawtransaction",
     // getinfo: Returns an object containing various state info
     "getinfo": "",
+    // getblockchaininfo: Returns an object containing various state info regarding blockchain processing
+    "getblockchaininfo": "getblockchaininfo",
     // getpeerinfo: Returns data about each connected network node as a json array of objects
     "getpeerinfo": "getpeerinfo",
     // gettxoutsetinfo: Returns an object with statistics about the unspent transaction output set

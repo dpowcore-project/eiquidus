@@ -78,9 +78,11 @@ function drop_collection(mongoose, colName, cb) {
 }
 
 function delete_database(mongoose, settings, cb) {
-  const dbString = `mongodb://${settings.dbsettings.user}:${settings.dbsettings.password}@${settings.dbsettings.address}:${settings.dbsettings.port}/${settings.dbsettings.database}`;
+  const dbString = `mongodb://${encodeURIComponent(settings.dbsettings.user)}:${encodeURIComponent(settings.dbsettings.password)}@${settings.dbsettings.address}:${settings.dbsettings.port}/${settings.dbsettings.database}`;
 
   console.log('Connecting to database..');
+
+  mongoose.set('strictQuery', true);
 
   // connect to mongo database
   mongoose.connect(dbString, function(err) {

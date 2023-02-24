@@ -8,7 +8,7 @@
 
 Written in node.js and mongodb, eIquidus is the most stable, secure, customizable and feature-rich open-source block explorer with support for virtually any altcoin that implements some form of the [Bitcoin RPC API protocol](https://developer.bitcoin.org/reference/rpc/index.html). Originally built for the [Exor blockchain](https://github.com/team-exor/exor), eIquidus has since grown into a fully-featured explorer with a focus on stability and security at its core. All features from the [original iquidus explorer](https://github.com/iquidus/explorer) are included here along with many new ideas from other iquidus forks, and an absolute ton of new custom changes and bug fixes that were developed specifically for eIquidus.
 
-![Homepage](public/img/screenshots/homepage.png)
+![Homepage](public/img/screenshots/homepage-1-101-0.png)
 
 ### Premium Support
 
@@ -38,8 +38,10 @@ Table of Contents
   - [Start Explorer Using PM2 (Recommended for Production)](#start-explorer-using-pm2-recommended-for-production)
   - [Start Explorer Using PM2 and Log Viewer](#start-explorer-using-pm2-and-log-viewer)
   - [Stop Explorer Using PM2 (Recommended for Production)](#stop-explorer-using-pm2-recommended-for-production)
+  - [Reload Explorer Using PM2 (Recommended for Production)](#reload-explorer-using-pm2-recommended-for-production)
   - [Start Explorer Using Forever (Alternate Production Option)](#start-explorer-using-forever-alternate-production-option)
   - [Stop Explorer Using Forever (Alternate Production Option)](#stop-explorer-using-forever-alternate-production-option)
+  - [Reload Explorer Using Forever (Alternate Production Option)](#reload-explorer-using-forever-alternate-production-option)
 - [Syncing Databases with the Blockchain](#syncing-databases-with-the-blockchain)
   - [Commands for Manually Syncing Databases](#commands-for-manually-syncing-databases)
   - [Sample Crontab](#sample-crontab)
@@ -77,6 +79,7 @@ Table of Contents
   - jqPlot v1.0.9
   - Chart.js v3.6.1
     - chartjs-plugin-crosshair v1.2.0 ([https://github.com/abelheinsbroek/chartjs-plugin-crosshair](https://github.com/abelheinsbroek/chartjs-plugin-crosshair))
+  - OverlayScrollbars v1.13.3
   - flag-icon-css v4.1.4 ([https://github.com/lipis/flag-icon-css](https://github.com/lipis/flag-icon-css))
 - Platform independent (tested to run on Windows, MacOS and Linux) **NOTE:** Most of the instructions in this guide were written for use with Linux and may need to be modified when using another OS
 - Mobile-friendly
@@ -87,15 +90,19 @@ Table of Contents
   - **Movement:** Displays latest blockchain transactions that are greater than a certain configurable amount
   - **Network:** Displays a list of peers that have connected to the coind wallet in the past 24 hours, along with useful addnode data that can be used to connect your own wallets to the network easier
   - **Top 100:** Displays the top 100 richest wallet addresses, the top 100 wallet addresses that have the highest total number of coins received based on adding up all received transactions, as well as a table and pie chart breakdown of wealth distribution. Additional support for omitting burned coins from top 100 lists
-  - **Markets:** Displays a number of exchange-related metrics including market summary, 24 hour chart, most recent buy/sell orders and latest trade history. The last known default exchange price is automatically converted to USD using the coingecko api from [https://www.coingecko.com/en/api](https://www.coingecko.com/en/api). The following 8 cryptocurrency exchanges are supported:
+  - **Markets:** Displays a number of exchange-related metrics including market summary, 24 hour chart, most recent buy/sell orders and latest trade history. The last known default exchange price is automatically converted to USD using the coingecko api from [https://www.coingecko.com/en/api](https://www.coingecko.com/en/api). The following 12 cryptocurrency exchanges are supported:
     - [AltMarkets](https://altmarkets.io)
     - [Bittrex](https://bittrex.com)
     - [Bleutrade](https://bleutrade.com)
     - [Crex24](https://crex24.com)
+    - [Dex-Trade](https://dex-trade.com)
+    - [FreiExchange](https://freiexchange.com)/[FreiXLite](https://freixlite.com) *\*no chart support due to a lack of OHLCV api data*
     - [Poloniex](https://poloniex.com)
     - [SouthXchange](https://southxchange.com)
     - [Stex](https://stex.com)
-    - [Yobit](https://yobit.io) *\*no chart support due to yobit's lack of OHLCV api data*
+    - [Txbit](https://txbit.io) *\*no chart support due to a lack of OHLCV api data*
+    - [Unnamed](https://unnamed.exchange)
+    - [Yobit](https://yobit.io) *\*no chart support due to a lack of OHLCV api data*
   - **API:** A listing of available public API's that can be used to retrieve information from the network without the need for a local wallet. The following public API's are supported:
     - **RPC API calls** (Return data from coind)
       - **getdifficulty:** Returns the current difficulty
@@ -175,6 +182,7 @@ Table of Contents
   - **getblock:** Returns an object with information about the block
   - **getrawtransaction:** Returns raw transaction data
   - **getinfo:** Returns an object containing various state info
+  - **getblockchaininfo:** Returns an object containing various state info regarding blockchain processing
   - **getpeerinfo:** Returns data about each connected network node as a json array of objects
   - **gettxoutsetinfo:** Returns an object with statistics about the unspent transaction output set
   - **getvotelist:** Returns an object with details regarding the current vote list
@@ -268,7 +276,7 @@ git clone https://github.com/team-exor/eiquidus explorer
 ##### Install Node Modules
 
 ```
-cd explorer && npm install --production
+cd explorer && npm install --only=prod
 ```
 
 ##### Configure Explorer Settings
@@ -279,7 +287,7 @@ cp ./settings.json.template ./settings.json
 
 *Make required changes in settings.json*
 
-**NOTE:** You can further customize the site by adding css rules to the `public/css/custom.scss` file. Adding changes to `custom.scss` is the preferred method of customizing the css rules for your site, without affecting the ability to receive explorer code updates in the future.
+**NOTE:** You can further customize the site by adding your own javascript code to the `public/js/custom.js` file and css rules to the `public/css/custom.scss` file. Adding changes to `custom.js` and `custom.scss` is the preferred method of customizing your site, without affecting the ability to receive explorer code updates in the future.
 
 ### Start/Stop the Explorer
 
@@ -308,7 +316,7 @@ npm run start-instance
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/npm run prestart && /path/to/node --stack-size=10000 ./bin/instance
+cd /path/to/explorer && /path/to/npm run prestart && /path/to/node --stack-size=10000 ./bin/cluster 1
 ```
 
 #### Stop Explorer (Use for Testing)
@@ -338,7 +346,7 @@ npm run start-pm2
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/npm run prestart "pm2" && /path/to/pm2 start ./bin/instance -i 0 --node-args="--stack-size=10000"
+cd /path/to/explorer && /path/to/npm run prestart "pm2" && /path/to/pm2 start ./bin/instance -i 0 -n explorer -p "./tmp/pm2.pid" --node-args="--stack-size=10000"
 ```
 
 **NOTE:** Use the following cmd to find the install path for PM2 (Linux only):
@@ -358,7 +366,7 @@ npm run start-pm2-debug
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/npm run prestart "pm2" && /path/to/pm2 start ./bin/instance -i 0 --node-args="--stack-size=10000" && /path/to/pm2 logs
+cd /path/to/explorer && /path/to/npm run prestart "pm2" && /path/to/pm2 start ./bin/instance -i 0 -n explorer -p "./tmp/pm2.pid" --node-args="--stack-size=10000" && /path/to/pm2 logs
 ```
 
 #### Stop Explorer Using PM2 (Recommended for Production)
@@ -372,7 +380,23 @@ npm run stop-pm2
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/pm2 stop ./bin/instance
+cd /path/to/explorer && /path/to/pm2 stop explorer
+```
+
+#### Reload Explorer Using PM2 (Recommended for Production)
+
+The explorer can be stopped and restarted in a single cmd when it is running via PM2, which is often necessary after updating the explorer code for example. Use one of the following terminal cmds to reload the explorer (be sure to run from within the explorer directory):
+
+**NOTE:** Assuming the explorer has access to 2 or more cpus, this reload will be done in such a way that there will be zero-downtime while the restart is being performed. If you only have a single cpu then the explorer will be inaccessible for a few seconds while the restart is being performed.
+
+```
+npm run reload-pm2
+```
+
+or (useful for crontab):
+
+```
+cd /path/to/explorer && /path/to/pm2 reload explorer
 ```
 
 #### Start Explorer Using Forever (Alternate Production Option)
@@ -388,7 +412,7 @@ npm run start-forever
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/npm run prestart && /path/to/forever start ./bin/cluster
+cd /path/to/explorer && /path/to/npm run prestart "forever"
 ```
 
 **NOTE:** Use the following cmd to find the install path for forever (Linux only):
@@ -408,7 +432,23 @@ npm run stop-forever
 or (useful for crontab):
 
 ```
-cd /path/to/explorer && /path/to/forever stop ./bin/cluster
+cd /path/to/explorer && /path/to/forever stop "explorer"
+```
+
+#### Reload Explorer Using Forever (Alternate Production Option)
+
+The explorer can be stopped and restarted in a single cmd when it is running via forever, which is often necessary after updating the explorer code for example. Use one of the following terminal cmds to reload the explorer (be sure to run from within the explorer directory):
+
+**NOTE:** The explorer will be inaccessible for a few seconds while the restart is being performed.
+
+```
+npm run reload-forever
+```
+
+or (useful for crontab):
+
+```
+cd /path/to/explorer && /path/to/forever restart "explorer"
 ```
 
 ### Syncing Databases with the Blockchain
@@ -723,13 +763,47 @@ jQuery(document).ready(function($) {
 
 #### Update Explorer Script
 
-Automatically download and install the newest explorer source code, update out-of-date dependencies and initialize new changes with a single command. In most cases this update script can be safely run while the explorer is actively running to prevent needing to shut down to do updates, but please note that it may be possible for certain updates with large changes to require a reboot to the explorer for all changes to take effect properly. If you notice the explorer having issues after updating, try shutting down and restarting the explorer before seeking support.
+Automatically download and install the newest explorer source code, update out-of-date dependencies and reload the explorer with a single command. This update script can be safely run while the explorer is actively running to prevent needing to manually shut down to do updates, but please note that the website may be inaccessible for a few seconds or more while the explorer is being updated.
 
 **NOTE:** Only explorer installations that were installed via cloning the source from git can be automatically updated. Be sure to follow the [Quick Install Instructions](#quick-install-instructions) to set up the explorer for optimum use with this update script.
 
 Update the explorer with the following command:
 
-`npm run update-explorer`
+```
+npm run update-explorer
+```
+
+or (useful for crontab):
+
+```
+cd /path/to/explorer && /path/to/node ./scripts/update_explorer.js
+```
+
+**NOTE:** The update script also supports a couple optional parameters.
+
+Use the following command if you want to update the explorer code only, without checking for out-of-date dependencies:
+
+```
+npm run update-explorer "explorer-only"
+```
+
+or (useful for crontab):
+
+```
+cd /path/to/explorer && /path/to/node ./scripts/update_explorer.js "explorer-only"
+```
+
+Use the following command if you want to upgrade outdated dependencies only, without checking for explorer code updates:
+
+```
+npm run update-explorer "dependencies-only"
+```
+
+or (useful for crontab):
+
+```
+cd /path/to/explorer && /path/to/node ./scripts/update_explorer.js "dependencies-only"
+```
 
 #### Backup Database Script
 
@@ -812,6 +886,11 @@ node --stack-size=[SIZE] scripts/sync.js index update
 Where [SIZE] is an integer higher than the default.
 
 *note: SIZE will depend on which blockchain you are using, you may need to play around a bit to find an optimal setting*
+
+
+**Error: bind EACCES ...**
+
+This error can appear when you try to run the explorer on a port number lower than 1024. There are a couple solutions to this problem which are explained in more detail in the [Run Express Webserver on Port 80](#run-express-webserver-on-port-80) section.
 
 ### Donations / Support Us
 

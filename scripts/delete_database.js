@@ -88,9 +88,11 @@ rl.question('Are you sure you want to do this? [y/n]: ', function (deleteAnswer)
 
           const settings = require('../lib/settings');
           const mongoose = require('mongoose');
-          const dbString = `mongodb://${settings.dbsettings.user}:${settings.dbsettings.password}@${settings.dbsettings.address}:${settings.dbsettings.port}/${settings.dbsettings.database}`;
+          const dbString = `mongodb://${encodeURIComponent(settings.dbsettings.user)}:${encodeURIComponent(settings.dbsettings.password)}@${settings.dbsettings.address}:${settings.dbsettings.port}/${settings.dbsettings.database}`;
 
           console.log('Connecting to database..');
+
+          mongoose.set('strictQuery', true);
 
           // connect to mongo database
           mongoose.connect(dbString, function(err) {
