@@ -594,38 +594,16 @@ if (lib.is_locked([database]) == false) {
                 address = address.replace("[", "").replace("]", "");
               }
 
-              db.find_peer(address, port, function(peer) {
+              db.find_peer(address, function(peer) {
                 if (peer) {
-                  if (peer['port'] != null && (isNaN(peer['port']) || peer['port'].length < 2)) {
-                    db.drop_peers(function() {
-                      console.log('Removing peers due to missing port information. Re-run this script to add peers again.');
-                      exit(1);
-                    });
+                  // peer already exists
+                  console.log('Updated peer %s [%s/%s]', address, (i + 1).toString(), body.length.toString());
+                  // check if the script is stopping
+                  if (stopSync) {
+                    // stop the loop
+                    loop.break(true);
                   }
-
-                  // peer already exists and should be refreshed
-                  // drop peer
-                  db.drop_peer(address, port, function() {
-                    // re-add the peer to refresh the data and extend the expiry date
-                    db.create_peer({
-                      address: address,
-                      port: port,
-                      protocol: peer.protocol,
-                      version: peer.version,
-                      country: peer.country,
-                      country_code: peer.country_code
-                    }, function() {
-                      console.log('Updated peer %s:%s [%s/%s]', address, port.toString(), (i + 1).toString(), body.length.toString());
-
-                      // check if the script is stopping
-                      if (stopSync) {
-                        // stop the loop
-                        loop.break(true);
-                      }
-
-                      loop.next();
-                    });
-                  });
+                  loop.next();
                 } else {
                   const rateLimitLib = require('../lib/ratelimit');
                   const rateLimit = new rateLimitLib.RateLimit(1, 2000, false);
@@ -649,8 +627,7 @@ if (lib.is_locked([database]) == false) {
                           country: geo.country_name,
                           country_code: geo.country_code
                         }, function() {
-                          console.log('Added new peer %s:%s [%s/%s]', address, port.toString(), (i + 1).toString(), body.length.toString());
-
+                          console.log('Added new peer %s [%s/%s]', address, (i + 1).toString(), body.length.toString());
                           // check if the script is stopping
                           if (stopSync) {
                             // stop the loop
