@@ -325,7 +325,7 @@ exit
 #### Download Source Code
 
 ```
-git clone https://github.com/bitweb-project/eiquidus explorer
+git clone https://github.com/dpowcore-project/eiquidus explorer
 ```
 
 #### Install Node Modules

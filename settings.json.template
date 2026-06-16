@@ -10,11 +10,11 @@
   // dbsettings: a collection of settings that allow the explorer to connect to MongoDB
   "dbsettings": {
     // user: The MongoDB username
-    "user": "eiquidus",
+    "user": "eiquidus2",
     // password: The MongoDB password
-    "password": "Nd^p2d77ceBX!L",
+    "password": "password",
     // database: The MongoDB database name (default: explorerdb)
-    "database": "explorerdb",
+    "database": "explorerdb2",
     // address: The MongoDB hostname. This should always be 'localhost' if connecting to a local instance, otherwise specify the ip address of a remote instance
     "address": "localhost",
     // port: The port # that MongoDB is configured to listen for requests on (default: 27017)
@@ -26,18 +26,18 @@
     // host: The hostname or ip address of the wallet to connect to (default: localhost)
     "host": "127.0.0.1",
     // port: The port # that the wallet is configured to listen for RPC requests on (default: 51573 for Exor wallet)
-    "port": 1605,
+    "port": 42002,
     // username: The wallet RPC username
-    "username": "bitweb",
+    "username": "dpcuser",
     // password: The wallet RPC password
-    "password": "bitweb"
+    "password": "password"
   },
 
   // webserver: a collection of settings that pertain to the node.js express web framework (read more: https://www.npmjs.com/package/express)
   "webserver": {
     // port: Port # to configure the express webserver to listen for http requests on
     //       NOTE: Be sure to configure firewalls to allow traffic through this port or the explorer website may not be accessible remotely
-    "port": 3002,
+    "port": 3003,
     // tls: a collection of settings that pertain to the TLS (Transport Layer Security) protocol feature (aka: ssl or https)
     "tls": {
       // enabled: Enable/disable TLS
@@ -77,9 +77,9 @@
   "coin": {
     // name: Name of the cryptocurrency coin being explored. This value is displayed in the page header when the "shared_pages.page_header.home_link" setting is set to "coin".
     //       NOTE: This value acts as a unique identifier for data stored in mongo and therefore cannot be changed without re-syncing all existing data.
-    "name": "Bitweb",
+    "name": "Dpowcoin",
     // symbol: The cryptocurrency coin ticker/symbol value. This value is displayed anywhere that coin data is displayed including the index, address, block, movement, reward, richlist/top100 and tx pages
-    "symbol": "BTE"
+    "symbol": "DPC"
   },
 
   // network_history: a collection of settings that controls saving of extra historical network data during a block sync
@@ -102,7 +102,7 @@
     //        (see /public/css/themes for available themes)
     "theme": "Litera",
     // page_title: The text to display at the end of the HTML title tag and also displayed in the page header when the "shared_pages.page_header.home_link" setting is set to "title"
-    "page_title": "Bitweb Explorer",
+    "page_title": "Dpowcoin Explorer",
     // favicons: a collection of image or icon files that are displayed in a browser window/tab and serve as branding for your website. Their main purpose is to help visitors locate your page easier when they have multiple tabs open
     //          Modern favicon sizes were inspired by this web article: https://www.emergeinteractive.com/insights/detail/The-Essentials-of-FavIcons/
     //          NOTE: If any of the favicons are left blank or not set to a valid file, they will be disabled and unused
@@ -202,7 +202,7 @@
           //                M: Display value in megahashes (MH/s)
           //                K: Display value in kilohashes (KH/s)
           //                H: Display value in hashes (H/s)
-          "nethash_units": "K"
+          "nethash_units": "H"
         },
         // difficulty_panel: a collection of settings that pertain to the difficulty panel which displays the current proof-of-work difficulty (only applicable to POW coins)
         "difficulty_panel": {
@@ -575,7 +575,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Github
           "tooltip_text": "Github",
           // url: The exact url that the social link should navigate to
-          "url": "https://github.com/bitweb-project/bitweb",
+          "url": "https://github.com/dpowcore-project/dpowcoin",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-github",
           // image_path: The path to an image file that will be displayed for this social link
@@ -589,7 +589,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Twitter
           "tooltip_text": "Twitter",
           // url: The exact url that the social link should navigate to
-          "url": "https://x.com/Bitweb_Project",
+          "url": "https://x.com/dpowcoin",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-twitter",
           // image_path: The path to an image file that will be displayed for this social link
@@ -603,7 +603,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Discord
           "tooltip_text": "Discord",
           // url: The exact url that the social link should navigate to
-          "url": "https://discord.gg/uC6wEVu6FR",
+          "url": "https://discord.gg/b9zkzAgUpH",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-discord",
           // image_path: The path to an image file that will be displayed for this social link
@@ -617,7 +617,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Telegram
           "tooltip_text": "Telegram",
           // url: The exact url that the social link should navigate to
-          "url": "https://t.me/bitweb_en",
+          "url": "https://t.me/dpowcoin",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "fa-brands fa-telegram",
           // image_path: The path to an image file that will be displayed for this social link
@@ -631,7 +631,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Website
           "tooltip_text": "Website",
           // url: The exact url that the social link should navigate to
-          "url": "https://bitwebcore.net",
+          "url": "https://dpowcore.org/",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "",
           // image_path: The path to an image file that will be displayed for this social link
@@ -645,7 +645,7 @@
           // tooltip_text: Social link tooltips are always prefixed by the "coin.name" setting followed by the text from this tooltip_text setting. Ex: Exor Coingecko
           "tooltip_text": "Coinpaprika",
           // url: The exact url that the social link should navigate to
-          "url": "https://coinpaprika.com/valjuta/bte-bitweb",
+          "url": "https://coinpaprika.com/valjuta/dpowcoin",
           // fontawesome_class: A string of css classes, separated by spaces that can be used to display a fontawesome icon for this social link. See https://fontawesome.com/ for more info
           "fontawesome_class": "",
           // image_path: The path to an image file that will be displayed for this social link
@@ -666,7 +666,7 @@
       "social_link_percent_height_mobile": 40,
       // powered_by_text: Customize the "powered by" text in the center of the footer with some custom html
       //                  NOTE: Add the keyword {explorer_version} to display the current version number of the explorer
-      "powered_by_text": "<a class='nav-link poweredby' href='https://github.com/bitweb-project/eiquidus' target='_blank'>eIquidus v{explorer_version}</a>"
+      "powered_by_text": "<a class='nav-link poweredby' href='https://github.com/dpowcore-project/eiquidus' target='_blank'>eIquidus v{explorer_version}</a>"
     }
   },
 
@@ -728,7 +728,7 @@
     // genesis_block: Your coins genesis block hash is used to determine the beginning of the blockchain
     //                For many bitcoin clones you can use the following cmd to get the block hash of the genesis block: coin-cli getblockhash 0
     //                NOTE: If this value is not entered correctly it will not be possible for the explorer to find or navigate to the genesis block, neither via block or transaction hash
-    "genesis_block": "111692c1b9b390c407ab74d7f924d4fa0f7589974ab61af96392feca11f209e6",
+    "genesis_block": "d86f8a0582e779830f182befeaaabc8c73a159b6b06530910758daf17ce31e36",
     // multi_algorithm: a collection of settings that can be used to show a new column with the hash algorithm that was used to mine a particular block for multi-algo coins
     //                  If enabled, a new column will be displayed on the block page and main transaction homepage that displays the hash algorithm used to mine a particular block or tx
     //                  NOTE: Changing any of the options in this section will require a full reindex of the blockchain data before previously synced blocks can display the algorithm
@@ -765,7 +765,7 @@
     // genesis_tx: Your coins genesis transaction hash is used to determine the beginning of the blockchain
     //             For many bitcoin clones you can use the following cmd to find the list of transaction hashes from the genesis block: coin-cli getblock 00014f36c648cdbc750f7dd28487a23cd9e0b0f95f5fccc5b5d01367e3f57469
     //             NOTE: If this value is not entered correctly it will not be possible for the explorer to find or navigate to the genesis block by searching for the genesis transaction hash
-    "genesis_tx": "14dee9b42e7c1893b5c472bd6c8bcb2fe51f797a97369561716d3997b00c08f6",
+    "genesis_tx": "10f5376e5169449acf540bb89615fb337319bb5e31de16f792665bf6e3518eb3",
     // show_op_return: Determine whether to decode and show OP_RETURN values that may have been embeddeded in a transaction
     //                 NOTE: Enabling this option will require a full reindex of the blockchain data before previously synced transactions can display the OP_RETURN value
     "show_op_return": true,
@@ -1083,7 +1083,7 @@
     "show_market_select": true,
     // exchanges: Enable/disable api integration with any of the available built-in exchanges
     //            Enabled exchanges display a number of exchange-related metrics including market summary, 24 hour chart, most recent buy/sell orders and latest trade history
-    //            Supported exchanges: nokyc , exbitron
+    //            Supported exchanges: nokyc
     "exchanges": {
       // nonkyc: a collection of settings that pertain to the nonkyc exchange
       "nonkyc": {
@@ -1152,18 +1152,18 @@
     "sample_data": {
       // blockindex: This value can be any valid block height number from your coins blockchain
       //             NOTE: This value is only used to build example api links on the api page from the /api/getblockhash api for example
-      "blockindex": 59769,
+      "blockindex": 3,
       // blockhash: This value can be any valid block hash from your coins blockchain
       //            For many bitcoin clones you can use the following cmd to get the block hash for a given block height: coin-cli getblockhash 64152
       //            NOTE: This value is only used to build example api links on the api page from the /api/getblock api for example
-      "blockhash": "7960ede58f51182311dfdd7b0559339642ab27ae374beeb9a24adf5ede951de6",
+      "blockhash": "a319516d875788fb403b9959ab71ae04ab930972fee26e649567d90e473a9fac",
       // txhash: This value can be any valid transaction hash from your coins blockchain
       //         For many bitcoin clones you can use the following cmd to find a list of tx hashes for a given block hash: coin-cli getblock 000000001ba119a0f6d49ebabd83343b125d7ee3d3184b1b41d6a7f2051153eb
       //         NOTE: This value is only used to build example api links on the api page from the /api/getrawtransaction api for example
-      "txhash": "31bb54436d6d2ba15bf492b534f11eb89bf36d3540c1a431f5c0b360a86d17aa",
+      "txhash": "71d50fa8ca059ea0fbbd5aafe948bfb214da7fbe8844b6e9c9367ec224323411",
       // address: This value can be any valid wallet address from your coins blockchain that has received at least 1 or more coin transactions
       //          NOTE: This value is only used to build example api links on the api page from the /ext/getaddress api for example
-      "address": "web1qwv7etwzfcfkg504marmmz0jj06yljltk04r3sn"
+      "address": "dpc1q9ah5k6f0my8f853tp9ftdpwezc3343rd48a0rr"
     },
     // public_apis: a collection of settings that pertain to the public api command system
     //              NOTE: Disabling any of these apis will remove the api definition from the api page and will return a "This method is disabled" msg if the api endpoint is called.
@@ -1374,7 +1374,7 @@
     // enabled: Enable/disable the ability for users to claim a wallet address (true/false)
     //          If set to false, the claim page will be completely inaccessible
     //          NOTE: Disabling this feature after addresses have already been claimed will effectively hide the claimed values and restore the original wallet addresses again
-    "enabled": true,
+    "enabled": false,
     // show_panels: Determine whether to show the panels configured in the shared_pages.page_header section across the top of this page (true/false)
     "show_panels": false,
     // show_nethash_chart: Determine whether to show the network hashrate chart configured in the shared_pages.network_charts.nethash_chart section across the top of this page (true/false)
@@ -1532,7 +1532,7 @@
   "labels": {
     // A collection of settings that pertain to the EJ6yc47cAZMGWHFccc9gfGbDLYuyNhP6wL wallet address
     // NOTE: Change this value to the wallet address that you would like to set a custom label on
-    "web1q68f9vh5j4069lqpxerry7ulqcckzqp0222qmm4": {
+    "dpc1q0dutc83g2a4hzuyqw33j8ae3405f0k4e4ntj3z": {
       // enabled: Enable/disable this particular wallet address label (true/false)
       //          If set to false, the label will be completely hidden
       "enabled": true,
@@ -1544,7 +1544,7 @@
       "type": "success",
       // url: The url the label should navigate to when clicked. Ex: http://example.com
       //      NOTE: Leave the value blank ( "" ) to prevent hyperlinking the label
-      "url": "https://bitwebcore.net/about"
+      "url": "https://dpowcore.org/en/supportus/"
     },
     // A collection of settings that pertain to the EXorBurnAddressXXXXXXXXXXXXXW7cDZQ wallet address
     // NOTE: Change this value to the wallet address that you would like to set a custom label on
@@ -1797,9 +1797,9 @@
   // benchmark: a collection of settings that allow the benchmark to connect to MongoDB
   "benchmark": {
     // user: The MongoDB username used only for the benchmark script
-    "user": "eiquidus",
+    "user": "eiquidus2",
     // password: The MongoDB password used only for the benchmark script
-    "password": "Nd^p2d77ceBX!L",
+    "password": "",
     // database: The MongoDB database name used only for the benchmark script
     "database": "explorer-benchmark",
     // address: The MongoDB hostname. This should always be 'localhost' if connecting to a local instance, otherwise specify the ip address of a remote instance
